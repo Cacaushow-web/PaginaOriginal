@@ -421,12 +421,54 @@
             cursor: pointer;
             font-weight: 600;
         }
+
+        /* Shipping Options */
+        .shipping-option {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .shipping-option:hover {
+            border-color: var(--primary);
+        }
+
+        .shipping-option.active {
+            border-color: var(--primary);
+            background-color: rgba(95, 44, 0, 0.05);
+        }
+
+        .shipping-option input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .shipping-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .shipping-info {
+            flex: 1;
+        }
+
+        .shipping-price {
+            font-weight: bold;
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="container">
-            <img src="pngwing.com (3).png" alt="Cacau Show" class="logo">
+            <img src="https://cloudfox-digital-products.s3.amazonaws.com/uploads/user/0mwK4362Ye3Q8bx/public/stores/yOeXZKMJwNgAQap/logo/nIjuyO05ddTFf6uYuVS6wMwptcpHhVWOPQ2S1490.png" alt="Cacau Show" class="logo">
             <p><strong>Parabéns! Você ganhou 100% de desconto. Complete seu pedido!</strong></p>
         </div>
     </div>
@@ -453,7 +495,7 @@
                 <!-- Product -->
                 <div class="product-card">
                     <div class="product">
-                        <img src="pngwing.com (3).png" alt="Ovinho de Páscoa" class="product-img">
+                        <img src="https://cloudfox-digital-products.s3.amazonaws.com/uploads/public/products/siRF43m8xI43T4cy9qyjCwe9FSvYLO0P9F6Iga4K.png" alt="Ovinho de Páscoa" class="product-img">
                         <div class="product-info">
                             <h3 class="product-title">Ovinho de Páscoa - Personagem</h3>
                             <p class="product-desc">Últimas unidades disponíveis</p>
@@ -547,11 +589,35 @@
                     </div>
                     
                     <h3 style="margin: 20px 0 15px;">Método de Entrega</h3>
-                    <div class="form-group">
-                        <div style="padding: 15px; background: #f9f9f9; border-radius: 8px;">
-                            <input type="radio" name="shipping" id="shipping1" checked>
-                            <label for="shipping1">Entrega Padrão - R$ 15,00 (5-7 dias úteis)</label>
-                        </div>
+                    
+                    <div class="shipping-option active" data-price="26.83">
+                        <label for="shipping1">
+                            <div class="shipping-info">
+                                <input type="radio" name="shipping" id="shipping1" checked>
+                                Correios - até 7 dias úteis
+                            </div>
+                            <span class="shipping-price">R$ 26,83</span>
+                        </label>
+                    </div>
+                    
+                    <div class="shipping-option" data-price="28.74">
+                        <label for="shipping2">
+                            <div class="shipping-info">
+                                <input type="radio" name="shipping" id="shipping2">
+                                Sedex - até 4 dias úteis
+                            </div>
+                            <span class="shipping-price">R$ 28,74</span>
+                        </label>
+                    </div>
+                    
+                    <div class="shipping-option" data-price="32.88">
+                        <label for="shipping3">
+                            <div class="shipping-info">
+                                <input type="radio" name="shipping" id="shipping3">
+                                Jadlog - em até 2 dias úteis (recomendado)
+                            </div>
+                            <span class="shipping-price">R$ 32,88</span>
+                        </label>
                     </div>
                     
                     <button class="btn" id="next-to-payment">CONTINUAR PARA PAGAMENTO</button>
@@ -562,7 +628,7 @@
                     <h2 class="form-title">Método de Pagamento</h2>
                     
                     <div class="payment-method active" data-method="pix">
-                        <img src="card-pix.svg" alt="PIX" class="payment-icon">
+                        <img src="https://pay.botiseguro.shop/assets/img/card-pix.svg" alt="PIX" class="payment-icon">
                         <div class="payment-info">
                             <h3 class="payment-name">PIX</h3>
                             <p class="payment-desc">Pagamento instantâneo com 0% de desconto</p>
@@ -582,7 +648,7 @@
                 <h2 class="summary-title">Resumo do Pedido</h2>
                 
                 <div class="product">
-                    <img src="pngwing.com (3).png" alt="Ovinho de Páscoa" class="product-img" style="width: 60px; height: 60px;">
+                    <img src="https://cloudfox-digital-products.s3.amazonaws.com/uploads/public/products/siRF43m8xI43T4cy9qyjCwe9FSvYLO0P9F6Iga4K.png" alt="Ovinho de Páscoa" class="product-img" style="width: 60px; height: 60px;">
                     <div class="product-info">
                         <h3 class="product-title">Ovinho de Páscoa</h3>
                         <p class="product-desc">1 x R$ 0,00</p>
@@ -594,9 +660,9 @@
                     <span>R$ 0,00</span>
                 </div>
                 
-                <div class="summary-row">
+                <div class="summary-row shipping-row">
                     <span>Frete</span>
-                    <span>R$ 15,00</span>
+                    <span class="shipping-value">R$ 26,83</span>
                 </div>
                 
                 <div class="summary-row">
@@ -606,11 +672,11 @@
                 
                 <div class="summary-row summary-total">
                     <span>Total</span>
-                    <span>R$ 15,00</span>
+                    <span class="total-value">R$ 26,83</span>
                 </div>
                 
                 <div style="text-align: center; margin-top: 30px;">
-                    <img src="seguro.png" alt="Compra segura" style="width: 150px;">
+                    <img src="https://pay.botiseguro.shop/assets/img/safe-payment.svg" alt="Compra segura" style="width: 150px;">
                     <p style="font-size: 12px; margin-top: 10px; color: #666;">COMPRA 100% SEGURA</p>
                 </div>
             </div>
@@ -621,7 +687,7 @@
             <h2 class="reviews-title">O que nossos clientes dizem</h2>
             
             <div class="review-card">
-                <img src="phpu9z214.jpg" alt="Reclame Aqui" class="review-avatar">
+                <img src="https://plans-reviews.s3.amazonaws.com/uploads/user/0mwK4362Ye3Q8bx/plans-reviews/public/phpu9z214.jpeg" alt="Reclame Aqui" class="review-avatar">
                 <div class="review-content">
                     <h3 class="review-author">Reclame Aqui</h3>
                     <div class="stars">
@@ -687,7 +753,7 @@
         <div class="container">
             <h3>Formas de pagamento</h3>
             <div class="payment-methods">
-                <img src="card-pix.svg" alt="PIX" class="payment-logo" style="border-radius: 8px;">
+                <img src="https://pay.botiseguro.shop/assets/img/card-pix.svg" alt="PIX" class="payment-logo" style="border-radius: 8px;">
             </div>
             <p class="copyright">© 2023 Cacau Show. Todos os direitos reservados.</p>
         </div>
@@ -749,6 +815,30 @@
                 }
             });
         });
+        
+        // Shipping option selection
+        document.querySelectorAll('.shipping-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.shipping-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update the radio button
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                // Update summary
+                updateOrderSummary(parseFloat(this.dataset.price));
+            });
+        });
+        
+        // Function to update order summary
+        function updateOrderSummary(shippingPrice) {
+            const subtotal = 0.00;
+            const total = subtotal + shippingPrice;
+            
+            document.querySelector('.shipping-value').textContent = `R$ ${shippingPrice.toFixed(2).replace('.', ',')}`;
+            document.querySelector('.total-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
         
         // QR Code Modal
         const modal = document.getElementById('qrModal');
