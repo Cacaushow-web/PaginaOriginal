@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Cacau Show</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #5f2c00;
+            --secondary: #23d07d;
+            --light: #f8f8f8;
+            --dark: #333;
+            --gray: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        
+        .logo {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+        
+        /* Checkout Grid */
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .product-desc {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: var(--gray);
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            padding: 5px;
+        }
+        
+        /* Forms */
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        .form-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        /* Payment Methods */
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: var(--primary);
+        }
+        
+        .payment-method.active {
+            border-color: var(--primary);
+            background-color: rgba(95, 44, 0, 0.05);
+        }
+        
+        .payment-icon {
+            width: 50px;
+            margin-right: 15px;
+        }
+        
+        .payment-info {
+            flex: 1;
+        }
+        
+        .payment-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .payment-desc {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        /* Order Summary */
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 20px;
+        }
+        
+        .summary-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-total {
+            font-weight: 700;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #1fbb70;
+        }
+        
+        /* Reviews */
+        .reviews-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        .reviews-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .review-card {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .review-content {
+            flex: 1;
+        }
+        
+        .review-author {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .review-text {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .stars {
+            color: #f8ce1c;
+            margin: 10px 0;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 0;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .payment-logo {
+            width: 80px;
+            margin: 0 10px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .copyright {
+            color: #666;
+            margin-top: 20px;
+        }
+        
+        /* Steps */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        
+        .step.active .step-number {
+            background: var(--primary);
+        }
+        
+        .step-line {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ddd;
+            z-index: 0;
+        }
+        
+        /* Security Info */
+        .security-info {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .security-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .security-icon {
+            color: var(--secondary);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        /* QR Code Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .modal-text {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .close-modal {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <img src="logo.png" alt="Cacau Show" class="logo">
+            <p><strong>Parabéns! Você ganhou 100% de desconto. Complete seu pedido!</strong></p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="steps">
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div>Identificação</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>Entrega</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>Pagamento</div>
+            </div>
+            <div class="step-line"></div>
+        </div>
+        
+        <div class="checkout-grid">
+            <div class="checkout-form">
+                <!-- Product -->
+                <div class="product-card">
+                    <div class="product">
+                        <img src="ovinho.png" alt="Ovinho de Páscoa" class="product-img">
+                        <div class="product-info">
+                            <h3 class="product-title">Ovinho de Páscoa - Personagem</h3>
+                            <p class="product-desc">Últimas unidades disponíveis</p>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn">-</button>
+                            <input type="number" value="1" min="1" class="quantity-input">
+                            <button class="quantity-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="form-section" id="contact-form">
+                    <h2 class="form-title">Informações Pessoais</h2>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" placeholder="(99) 99999-9999" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nome completo</label>
+                        <input type="text" id="name" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" placeholder="000.000.000-00" required>
+                    </div>
+                    
+                    <!-- Security Info Box -->
+                    <div class="security-info">
+                        <div class="security-item">
+                            <i class="fas fa-check-circle security-icon"></i>
+                            <div>Usamos seus dados de forma 100% segura para garantir a sua satisfação</div>
+                        </div>
+                        <div class="security-item">
+                            <i class="fas fa-check-circle security-icon"></i>
+                            <div>Enviar o seu comprovante de compra e pagamento</div>
+                        </div>
+                        <div class="security-item">
+                            <i class="fas fa-check-circle security-icon"></i>
+                            <div>Ativar a sua garantia de devolução caso não fique satisfeito</div>
+                        </div>
+                        <div class="security-item" style="margin-bottom: 0;">
+                            <i class="fas fa-check-circle security-icon"></i>
+                            <div>Acompanhar o andamento do seu pedido</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="next-to-shipping">CONTINUAR PARA ENTREGA</button>
+                </div>
+                
+                <!-- Shipping Form (hidden initially) -->
+                <div class="form-section" id="shipping-form" style="display: none;">
+                    <h2 class="form-title">Endereço de Entrega</h2>
+                    <div class="form-group">
+                        <label for="cep">CEP</label>
+                        <input type="text" id="cep" placeholder="00000-000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Endereço</label>
+                        <input type="text" id="address" placeholder="Rua, Avenida, Alameda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="number">Número</label>
+                        <input type="text" id="number" placeholder="123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="complement">Complemento</label>
+                        <input type="text" id="complement" placeholder="Apartamento, bloco">
+                    </div>
+                    <div class="form-group">
+                        <label for="neighborhood">Bairro</label>
+                        <input type="text" id="neighborhood" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Cidade</label>
+                        <input type="text" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Estado</label>
+                        <select id="state" required>
+                            <option value="">Selecione</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <!-- outros estados -->
+                        </select>
+                    </div>
+                    
+                    <h3 style="margin: 20px 0 15px;">Método de Entrega</h3>
+                    <div class="form-group">
+                        <div style="padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                            <input type="radio" name="shipping" id="shipping1" checked>
+                            <label for="shipping1">Entrega Padrão - R$ 15,00 (5-7 dias úteis)</label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="next-to-payment">CONTINUAR PARA PAGAMENTO</button>
+                </div>
+                
+                <!-- Payment Form (hidden initially) -->
+                <div class="form-section" id="payment-form" style="display: none;">
+                    <h2 class="form-title">Método de Pagamento</h2>
+                    
+                    <div class="payment-method active" data-method="pix">
+                        <img src="card-pix.svg" alt="PIX" class="payment-icon">
+                        <div class="payment-info">
+                            <h3 class="payment-name">PIX</h3>
+                            <p class="payment-desc">Pagamento instantâneo com 0% de desconto</p>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 15px; background: #f9f9f9; border-radius: 8px; margin-top: 20px;">
+                        <p>Ao selecionar o Pix, você será encaminhado para um ambiente seguro para finalizar seu pagamento.</p>
+                    </div>
+                    
+                    <button class="btn" id="complete-purchase">FINALIZAR COMPRA</button>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="summary-card">
+                <h2 class="summary-title">Resumo do Pedido</h2>
+                
+                <div class="product">
+                    <img src="ovinho.png" alt="Ovinho de Páscoa" class="product-img" style="width: 60px; height: 60px;">
+                    <div class="product-info">
+                        <h3 class="product-title">Ovinho de Páscoa</h3>
+                        <p class="product-desc">1 x R$ 0,00</p>
+                    </div>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>R$ 0,00</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span>R$ 15,00</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Desconto</span>
+                    <span>- R$ 0,00</span>
+                </div>
+                
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span>R$ 15,00</span>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <img src="seguro.png" alt="Compra segura" style="width: 150px;">
+                    <p style="font-size: 12px; margin-top: 10px; color: #666;">COMPRA 100% SEGURA</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2 class="reviews-title">O que nossos clientes dizem</h2>
+            
+            <div class="review-card">
+                <img src="phpu9z214.jpg" alt="Reclame Aqui" class="review-avatar">
+                <div class="review-content">
+                    <h3 class="review-author">Reclame Aqui</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">Site oficial verificado pelo Reclame Aqui.</p>
+                </div>
+            </div>
+            
+            <div class="review-card">
+                <img src="https://plans-reviews.s3.amazonaws.com/uploads/user/0mwK4362Ye3Q8bx/plans-reviews/public/php0j9UuL.jpeg" alt="Rosa" class="review-avatar">
+                <div class="review-content">
+                    <h3 class="review-author">Rosa</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">Comprei o ovinho do desenho que minha neta gosta e chegou certinho, fiquei muito feliz porque se não fosse a promoção eu não ia ter condições de pagar pra ela um ovinho agora na páscoa.</p>
+                </div>
+            </div>
+            
+            <div class="review-card">
+                <img src="https://plans-reviews.s3.amazonaws.com/uploads/user/0mwK4362Ye3Q8bx/plans-reviews/public/phpSv3nJS.png" alt="Maria Clara" class="review-avatar">
+                <div class="review-content">
+                    <h3 class="review-author">Maria Clara</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">Ameiiiii comprei o da docinho e só paguei o frete, chegou aqui e agora estou debochando das minhas amigas.</p>
+                </div>
+            </div>
+            
+            <div class="review-card" style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">
+                <img src="https://plans-reviews.s3.amazonaws.com/uploads/user/0mwK4362Ye3Q8bx/plans-reviews/public/php1Jg7IC.png" alt="Julia Oliveira" class="review-avatar">
+                <div class="review-content">
+                    <h3 class="review-author">Julia Oliveira</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">Cacau Show eu te amo!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <h3>Formas de pagamento</h3>
+            <div class="payment-methods">
+                <img src="card-pix.svg" alt="PIX" class="payment-logo" style="border-radius: 8px;">
+            </div>
+            <p class="copyright">© 2023 Cacau Show. Todos os direitos reservados.</p>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">Pagamento via PIX</h3>
+            <div class="qr-code">
+                <!-- QR Code será gerado aqui -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PIX1234567890" alt="QR Code PIX">
+            </div>
+            <p class="modal-text">Escaneie o QR Code acima usando o aplicativo do seu banco para concluir o pagamento.</p>
+            <button class="close-modal" id="closeModal">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        // Simple navigation between steps
+        document.getElementById('next-to-shipping').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('contact-form').style.display = 'none';
+            document.getElementById('shipping-form').style.display = 'block';
+            
+            // Update steps UI
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.querySelectorAll('.step')[1].classList.add('active');
+        });
+        
+        document.getElementById('next-to-payment').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('shipping-form').style.display = 'none';
+            document.getElementById('payment-form').style.display = 'block';
+            
+            // Update steps UI
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.querySelectorAll('.step')[2].classList.add('active');
+        });
+        
+        // Payment method selection
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Quantity control
+        document.querySelectorAll('.quantity-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('.quantity-input');
+                let value = parseInt(input.value);
+                
+                if (this.textContent === '+' && value < 99) {
+                    input.value = value + 1;
+                } else if (this.textContent === '-' && value > 1) {
+                    input.value = value - 1;
+                }
+            });
+        });
+        
+        // QR Code Modal
+        const modal = document.getElementById('qrModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        document.getElementById('complete-purchase').addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+        });
+        
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
