@@ -861,18 +861,6 @@
         </div>
     </div>
 
-    <!-- QR Code Modal -->
-    <div id="qrModal" class="modal">
-        <div class="modal-content">
-            <h3 class="modal-title">Pagamento via PIX</h3>
-            <div class="qr-code-img" id="qrCodeImage">
-                <!-- QR Code será gerado aqui dinamicamente -->
-            </div>
-            <p class="modal-text">Escaneie o QR Code acima usando o aplicativo do seu banco para concluir o pagamento.</p>
-            <button class="close-modal" id="closeModal">Fechar</button>
-        </div>
-    </div>
-
     <script>
         // Função para validar CPF
         function validarCPF(cpf) {
@@ -1018,32 +1006,16 @@
             document.querySelector('.total-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         }
         
-        // QR Code Modal
-        const modal = document.getElementById('qrModal');
-        const closeModal = document.getElementById('closeModal');
-        const qrCodeImage = document.getElementById('qrCodeImage');
-        
+        // Redirecionar para o link PIX ao finalizar compra
         document.getElementById('complete-purchase').addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Obter o QR Code correspondente à opção de entrega selecionada
+            // Obter o link PIX correspondente à opção de entrega selecionada
             const selectedShipping = document.querySelector('.shipping-option.active');
-            const qrCodeLink = selectedShipping.dataset.qrcode;
+            const pixLink = selectedShipping.dataset.qrcode;
             
-            // Gerar a imagem do QR Code
-            qrCodeImage.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrCodeLink)}" alt="QR Code PIX">`;
-            
-            modal.style.display = 'block';
-        });
-        
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
-        
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
+            // Redirecionar para o link PIX
+            window.location.href = pixLink;
         });
 
         // Email suggestions functionality
