@@ -584,24 +584,6 @@
                 <!-- Contact Form -->
                 <div class="form-section" id="contact-form">
                     <h2 class="form-title">Informações Pessoais</h2>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" placeholder="seu@email.com" required>
-                        <div id="email-suggestions"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Telefone</label>
-                        <input type="tel" id="phone" placeholder="(99) 99999-9999" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Nome completo</label>
-                        <input type="text" id="name" placeholder="Seu nome completo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cpf">CPF</label>
-                        <input type="text" id="cpf" placeholder="000.000.000-00" required maxlength="14">
-                        <div class="error-message" id="cpf-error">CPF inválido</div>
-                    </div>
                     
                     <!-- Security Info Box -->
                     <div class="security-info">
@@ -623,74 +605,15 @@
                         </div>
                     </div>
                     
-                    <button class="btn" id="next-to-shipping" disabled>CONTINUAR PARA ENTREGA</button>
+                    <button class="btn" id="next-to-shipping">CONTINUAR PARA ENTREGA</button>
                 </div>
                 
                 <!-- Shipping Form (hidden initially) -->
                 <div class="form-section" id="shipping-form" style="display: none;">
-                    <h2 class="form-title">Endereço de Entrega</h2>
-                    <div class="form-group">
-                        <label for="cep">CEP</label>
-                        <input type="text" id="cep" placeholder="00000-000" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Endereço</label>
-                        <input type="text" id="address" placeholder="Rua, Avenida, Alameda" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="number">Número</label>
-                        <input type="text" id="number" placeholder="123" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="complement">Complemento</label>
-                        <input type="text" id="complement" placeholder="Apartamento, bloco">
-                    </div>
-                    <div class="form-group">
-                        <label for="neighborhood">Bairro</label>
-                        <input type="text" id="neighborhood" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="city">Cidade</label>
-                        <input type="text" id="city" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="state">Estado</label>
-                        <select id="state" required>
-                            <option value="">Selecione</option>
-                            <option value="AC">Acre</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="AP">Amapá</option>
-                            <option value="AM">Amazonas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="DF">Distrito Federal</option>
-                            <option value="ES">Espírito Santo</option>
-                            <option value="GO">Goiás</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="MT">Mato Grosso</option>
-                            <option value="MS">Mato Grosso do Sul</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="PA">Pará</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PR">Paraná</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                            <option value="RO">Rondônia</option>
-                            <option value="RR">Roraima</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="SE">Sergipe</option>
-                            <option value="TO">Tocantins</option>
-                        </select>
-                    </div>
-                    
-                    <h3 style="margin: 20px 0 15px;">Método de Entrega</h3>
+                    <h2 class="form-title">Método de Entrega</h2>
                     
                     <!-- Correios - Link específico -->
-                    <div class="shipping-option active" data-price="26.83" data-qrcode="https://nubank.com.br/cobranca/HjOZ2O0mwj65esdo">
+                    <div class="shipping-option active" data-price="26.83" data-link="https://go.disruptybr.com.br/cahpbxwyzc">
                         <label for="shipping1">
                             <div class="shipping-info">
                                 <input type="radio" name="shipping" id="shipping1" checked>
@@ -701,7 +624,7 @@
                     </div>
                     
                     <!-- Sedex - Link específico -->
-                    <div class="shipping-option" data-price="28.74" data-qrcode="https://nubank.com.br/cobranca/wNwJbwAE9x65esdo">
+                    <div class="shipping-option" data-price="28.74" data-link="https://go.disruptybr.com.br/uwwi4">
                         <label for="shipping2">
                             <div class="shipping-info">
                                 <input type="radio" name="shipping" id="shipping2">
@@ -712,7 +635,7 @@
                     </div>
                     
                     <!-- Jadlog - Link específico -->
-                    <div class="shipping-option" data-price="32.88" data-qrcode="https://nubank.com.br/cobranca/PCuPnoAV7265esdo">
+                    <div class="shipping-option" data-price="32.88" data-link="https://go.disruptybr.com.br/gvw04">
                         <label for="shipping3">
                             <div class="shipping-info">
                                 <input type="radio" name="shipping" id="shipping3">
@@ -913,23 +836,6 @@
             return cpf;
         }
 
-        // Verificar se todos os campos estão preenchidos corretamente
-        function verificarCampos() {
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const name = document.getElementById('name').value;
-            const cpf = document.getElementById('cpf').value;
-            const cpfValido = validarCPF(cpf);
-            
-            const botao = document.getElementById('next-to-shipping');
-            
-            if (email && phone && name && cpfValido) {
-                botao.disabled = false;
-            } else {
-                botao.disabled = true;
-            }
-        }
-
         // Simple navigation between steps
         document.getElementById('next-to-shipping').addEventListener('click', function(e) {
             e.preventDefault();
@@ -1006,114 +912,20 @@
             document.querySelector('.total-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         }
         
-        // Redirecionar para o link PIX ao finalizar compra
+        // Redirecionar para o link correspondente ao método de entrega selecionado
         document.getElementById('complete-purchase').addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Obter o link PIX correspondente à opção de entrega selecionada
+            // Obter o link correspondente à opção de entrega selecionada
             const selectedShipping = document.querySelector('.shipping-option.active');
-            const pixLink = selectedShipping.dataset.qrcode;
+            const shippingLink = selectedShipping.dataset.link;
             
-            // Redirecionar para o link PIX
-            window.location.href = pixLink;
+            // Redirecionar para o link
+            window.location.href = shippingLink;
         });
 
-        // Email suggestions functionality
-        const emailInput = document.getElementById('email');
-        const emailSuggestions = document.getElementById('email-suggestions');
-        const emailProviders = [
-            'gmail.com',
-            'hotmail.com',
-            'yahoo.com',
-            'outlook.com',
-            'icloud.com',
-            'protonmail.com',
-            'live.com',
-            'bol.com.br',
-            'uol.com.br',
-            'terra.com.br'
-        ];
-
-        emailInput.addEventListener('input', function() {
-            const value = emailInput.value;
-            const atIndex = value.indexOf('@');
-            
-            // Clear previous suggestions
-            emailSuggestions.innerHTML = '';
-            
-            // Only show suggestions if @ is present and not at the end
-            if (atIndex > -1 && atIndex < value.length - 1) {
-                const userPart = value.substring(0, atIndex);
-                const domainPart = value.substring(atIndex + 1);
-                
-                // Filter providers that match what's being typed
-                const matchingProviders = emailProviders.filter(provider => 
-                    provider.startsWith(domainPart.toLowerCase())
-                );
-                
-                if (matchingProviders.length > 0) {
-                    // Show matching suggestions
-                    matchingProviders.forEach(provider => {
-                        const suggestion = document.createElement('div');
-                        suggestion.textContent = userPart + '@' + provider;
-                        suggestion.addEventListener('click', function() {
-                            emailInput.value = userPart + '@' + provider;
-                            emailSuggestions.style.display = 'none';
-                            verificarCampos();
-                        });
-                        emailSuggestions.appendChild(suggestion);
-                    });
-                    
-                    emailSuggestions.style.display = 'block';
-                } else {
-                    emailSuggestions.style.display = 'none';
-                }
-            } else {
-                emailSuggestions.style.display = 'none';
-            }
-            
-            verificarCampos();
-        });
-
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function(event) {
-            if (event.target !== emailInput) {
-                emailSuggestions.style.display = 'none';
-            }
-        });
-
-        // CPF validation and formatting
-        const cpfInput = document.getElementById('cpf');
-        const cpfError = document.getElementById('cpf-error');
-
-        cpfInput.addEventListener('input', function() {
-            // Format CPF
-            this.value = formatarCPF(this.value);
-            
-            // Validate CPF
-            const cpfValido = validarCPF(this.value);
-            
-            if (this.value.length > 0 && !cpfValido) {
-                cpfInput.classList.add('error-input');
-                cpfError.style.display = 'block';
-            } else {
-                cpfInput.classList.remove('error-input');
-                cpfError.style.display = 'none';
-            }
-            
-            verificarCampos();
-        });
-
-        // Validate all fields on page load
+        // Atualizar o resumo do pedido quando a página carrega
         document.addEventListener('DOMContentLoaded', function() {
-            // Add input event listeners to all required fields
-            document.getElementById('phone').addEventListener('input', verificarCampos);
-            document.getElementById('name').addEventListener('input', verificarCampos);
-            
-            // Initially disable the button
-            document.getElementById('next-to-shipping').disabled = true;
-            
-            // Atualizar o resumo do pedido quando a página carrega
             const selectedShipping = document.querySelector('.shipping-option.active');
             updateOrderSummary(parseFloat(selectedShipping.dataset.price));
         });
