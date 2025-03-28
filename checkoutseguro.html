@@ -109,30 +109,6 @@
             font-size: 14px;
         }
         
-        .quantity-control {
-            display: flex;
-            align-items: center;
-        }
-        
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            background: var(--gray);
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        
-        .quantity-input {
-            width: 50px;
-            text-align: center;
-            margin: 0 10px;
-            border: 1px solid var(--gray);
-            border-radius: 4px;
-            padding: 5px;
-        }
-        
         /* Forms */
         .form-section {
             background: white;
@@ -573,10 +549,8 @@
                             <h3 class="product-title">Ovinho de Páscoa - Personagem</h3>
                             <p class="product-desc">Últimas unidades disponíveis</p>
                         </div>
-                        <div class="quantity-control">
-                            <button class="quantity-btn">-</button>
-                            <input type="number" value="1" min="1" class="quantity-input">
-                            <button class="quantity-btn">+</button>
+                        <div style="padding: 8px 15px; background: #f5f5f5; border-radius: 4px;">
+                            1 unidade
                         </div>
                     </div>
                 </div>
@@ -871,20 +845,6 @@
             method.addEventListener('click', function() {
                 document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
                 this.classList.add('active');
-            });
-        });
-        
-        // Quantity control
-        document.querySelectorAll('.quantity-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('.quantity-input');
-                let value = parseInt(input.value);
-                
-                if (this.textContent === '+' && value < 99) {
-                    input.value = value + 1;
-                } else if (this.textContent === '-' && value > 1) {
-                    input.value = value - 1;
-                }
             });
         });
         
