@@ -434,65 +434,13 @@
             color: var(--primary);
         }
         
-        .qr-code-container {
-            position: relative;
-            height: 250px;
-            margin-bottom: 15px;
-        }
-
-        .qr-code {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.3s;
-            text-align: center;
-        }
-
-        .qr-code.active {
-            opacity: 1;
-        }
-
-        .qr-code img {
+        .qr-code-img {
             width: 200px;
             height: 200px;
-            margin: 0 auto;
+            margin: 0 auto 20px;
             background: #f5f5f5;
             padding: 10px;
             border-radius: 8px;
-        }
-
-        .qr-instruction {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .qr-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 15px 0;
-        }
-
-        .qr-nav-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .qr-nav-btn:hover {
-            background: #4a2400;
-        }
-
-        .qr-counter {
-            font-weight: 600;
-            color: var(--primary);
         }
         
         .modal-text {
@@ -741,7 +689,7 @@
                     
                     <h3 style="margin: 20px 0 15px;">Método de Entrega</h3>
                     
-                    <div class="shipping-option active" data-price="26.83">
+                    <div class="shipping-option active" data-price="26.83" data-qrcode="https://nubank.com.br/cobranca/HjOZ2O0mwj65esdo">
                         <label for="shipping1">
                             <div class="shipping-info">
                                 <input type="radio" name="shipping" id="shipping1" checked>
@@ -751,7 +699,7 @@
                         </label>
                     </div>
                     
-                    <div class="shipping-option" data-price="28.74">
+                    <div class="shipping-option" data-price="28.74" data-qrcode="https://nubank.com.br/cobranca/PCuPnoAV7265esdo">
                         <label for="shipping2">
                             <div class="shipping-info">
                                 <input type="radio" name="shipping" id="shipping2">
@@ -761,7 +709,7 @@
                         </label>
                     </div>
                     
-                    <div class="shipping-option" data-price="32.88">
+                    <div class="shipping-option" data-price="32.88" data-qrcode="https://nubank.com.br/cobranca/PCuPnoAV7265esdo">
                         <label for="shipping3">
                             <div class="shipping-info">
                                 <input type="radio" name="shipping" id="shipping3">
@@ -914,29 +862,10 @@
     <div id="qrModal" class="modal">
         <div class="modal-content">
             <h3 class="modal-title">Pagamento via PIX</h3>
-            <div class="qr-code-container">
-                <!-- QR Codes serão gerados aqui -->
-                <div class="qr-code active" data-link="https://nubank.com.br/cobranca/HjOZ2O0mwj65esdo">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://nubank.com.br/cobranca/HjOZ2O0mwj65esdo" alt="QR Code PIX 1">
-                    <p class="qr-instruction">Escaneie este QR Code com seu banco</p>
-                </div>
-                <div class="qr-code" data-link="https://nubank.com.br/cobranca/wNwJbwAE9x65esdo">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://nubank.com.br/cobranca/wNwJbwAE9x65esdo" alt="QR Code PIX 2">
-                    <p class="qr-instruction">Escaneie este QR Code com seu banco</p>
-                </div>
-                <div class="qr-code" data-link="https://nubank.com.br/cobranca/PCuPnoAV7265esdo">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://nubank.com.br/cobranca/PCuPnoAV7265esdo" alt="QR Code PIX 3">
-                    <p class="qr-instruction">Escaneie este QR Code com seu banco</p>
-                </div>
+            <div class="qr-code-img" id="qrCodeImage">
+                <!-- QR Code será gerado aqui dinamicamente -->
             </div>
-            
-            <div class="qr-nav">
-                <button class="qr-nav-btn" id="prevQr"><i class="fas fa-chevron-left"></i> Anterior</button>
-                <span class="qr-counter">1/3</span>
-                <button class="qr-nav-btn" id="nextQr">Próximo <i class="fas fa-chevron-right"></i></button>
-            </div>
-            
-            <p class="modal-text">Escaneie qualquer QR Code acima usando o aplicativo do seu banco para concluir o pagamento.</p>
+            <p class="modal-text">Escaneie o QR Code acima usando o aplicativo do seu banco para concluir o pagamento.</p>
             <button class="close-modal" id="closeModal">Fechar</button>
         </div>
     </div>
@@ -1086,36 +1015,21 @@
             document.querySelector('.total-value').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         }
         
-        // QR Code Navigation
-        let currentQr = 0;
-        const qrCodes = document.querySelectorAll('.qr-code');
-        const qrCounter = document.querySelector('.qr-counter');
-
-        function showQr(index) {
-            qrCodes.forEach(qr => qr.classList.remove('active'));
-            qrCodes[index].classList.add('active');
-            qrCounter.textContent = `${index + 1}/${qrCodes.length}`;
-        }
-
-        document.getElementById('nextQr').addEventListener('click', function() {
-            currentQr = (currentQr + 1) % qrCodes.length;
-            showQr(currentQr);
-        });
-
-        document.getElementById('prevQr').addEventListener('click', function() {
-            currentQr = (currentQr - 1 + qrCodes.length) % qrCodes.length;
-            showQr(currentQr);
-        });
-
-        // Initialize QR Codes
-        showQr(0);
-        
         // QR Code Modal
         const modal = document.getElementById('qrModal');
         const closeModal = document.getElementById('closeModal');
+        const qrCodeImage = document.getElementById('qrCodeImage');
         
         document.getElementById('complete-purchase').addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Obter o QR Code correspondente à opção de entrega selecionada
+            const selectedShipping = document.querySelector('.shipping-option.active');
+            const qrCodeLink = selectedShipping.dataset.qrcode;
+            
+            // Gerar a imagem do QR Code
+            qrCodeImage.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrCodeLink)}" alt="QR Code PIX">`;
+            
             modal.style.display = 'block';
         });
         
