@@ -657,9 +657,33 @@
                         <label for="state">Estado</label>
                         <select id="state" required>
                             <option value="">Selecione</option>
-                            <option value="SP">São Paulo</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
                             <option value="RJ">Rio de Janeiro</option>
-                            <!-- outros estados -->
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
                         </select>
                     </div>
                     
@@ -925,6 +949,15 @@
             // Update steps UI
             document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
             document.querySelectorAll('.step')[1].classList.add('active');
+            
+            // Mostrar frete e total na tela de entrega
+            document.querySelectorAll('.summary-shipping-row, .summary-total-row').forEach(el => {
+                el.style.display = 'flex';
+            });
+            
+            // Atualizar o resumo com o valor do frete selecionado
+            const selectedShipping = document.querySelector('.shipping-option.active');
+            updateOrderSummary(parseFloat(selectedShipping.dataset.price));
         });
         
         document.getElementById('next-to-payment').addEventListener('click', function(e) {
@@ -935,11 +968,6 @@
             // Update steps UI
             document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
             document.querySelectorAll('.step')[2].classList.add('active');
-            
-            // Mostrar frete e total apenas na tela de pagamento
-            document.querySelectorAll('.summary-shipping-row, .summary-total-row').forEach(el => {
-                el.style.display = 'flex';
-            });
         });
         
         // Payment method selection
@@ -1101,6 +1129,10 @@
             
             // Initially disable the button
             document.getElementById('next-to-shipping').disabled = true;
+            
+            // Atualizar o resumo do pedido quando a página carrega
+            const selectedShipping = document.querySelector('.shipping-option.active');
+            updateOrderSummary(parseFloat(selectedShipping.dataset.price));
         });
     </script>
 </body>
